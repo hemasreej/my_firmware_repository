@@ -1,0 +1,91 @@
+🔐 1. Embedded Fault-Tolerant Attitude Monitoring System
+Theme: Aerospace avionics
+Primary Board: STM32WB55RG
+Sensors: BNO055
+What it does:
+
+Continuously reads pitch, roll, yaw from BNO055.
+
+Monitors for abnormal conditions (e.g., sensor freeze, wild drift).
+
+Implements basic redundancy and recovery (e.g., last-known-value usage, reset logic).
+
+Blinks LED status indicators (normal, degraded, failed).
+
+Can send telemetry over BLE (optional).
+
+Why it's valuable:
+
+Real avionics systems need fault detection and graceful degradation.
+
+Demonstrates sensor fusion, monitoring, and embedded failover logic.
+
+Extension:
+
+Add sensor range checks, watchdog timer.
+
+Add simulated IMU failure injection (e.g., stuck values).
+
+🛰️ 2. Secure Sensor Node for Tactical Environment
+Theme: Defense IoT / Remote Sensing
+Primary Board: Xiao ESP32-S3
+Sensors: MQ-2 (environmental threat) + BNO055
+What it does:
+
+Reads gas + orientation data periodically.
+
+Signs + encrypts the data using ESP32 crypto APIs (AES or HMAC).
+
+Sends encrypted packets over Wi-Fi or BLE.
+
+Logs to serial or saves locally (optional).
+
+LED indicates sensor status and communication activity.
+
+Why it's valuable:
+
+Simulates a field-deployed node for early warning systems (e.g., chemical detection, UAV drift).
+
+Shows embedded security, lightweight data handling, and sensor integration.
+
+Extension:
+
+Add CRC or HMAC-based integrity check.
+
+Add acknowledgment + retransmission logic.
+
+🛠️ 3. RTOS-Based Modular Sensor Task System
+Theme: Embedded avionics (multi-sensor task management)
+Primary Board: STM32WB55RG or ESP32-S3 with FreeRTOS
+What it does:
+
+Task 1: Reads BNO055 orientation data at fixed interval.
+
+Task 2: Monitors MQ-2 gas levels and classifies air quality.
+
+Task 3: Heartbeat / LED blink status.
+
+Implements inter-task communication (queues or semaphores).
+
+Logs via UART.
+
+Why it’s valuable:
+
+Mimics avionics RTOS environment.
+
+Showcases multitasking, inter-task messaging, and sensor priority handling.
+
+Extension:
+
+Add simulated sensor overload or failure for robustness test.
+
+Task watchdog for sensor tasks.
+
+🧰 Tools You Can Use:
+STM32CubeIDE for STM32WB55RG
+
+PlatformIO + Arduino or ESP-IDF for ESP32-S3
+
+Python/Serial Plotter for visualizing data
+
+FreeRTOS (on either MCU)
