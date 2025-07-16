@@ -1,0 +1,7 @@
+1. created a video to explain pullup and pullddown
+key takeaways
+1. stick to the basic structure of pull up nad pull down
+led is add on and independent
+2. current sourcing and sinking is a concpt where we need to check 
+https://startingelectronics.org/current-sinking-current-sourcing/#are-there-any-safety-concerns-with-sourcing-and-sinking
+4. understood why people use multimeters to check the pin current flow coz over souricng or sinking causes damage to the devices and peripherals attacehd to it
