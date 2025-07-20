@@ -1,0 +1,41 @@
+When you press a mechanical push-button, the signal doesn’t transition cleanly from HIGH to LOW (or vice versa). Instead, it bounces, causing multiple unwanted transitions in a very short time (a few milliseconds).
+
+👇 Problem:
+Without debouncing, a single press may be detected as multiple presses — leading to bugs like LEDs blinking unexpectedly, menus skipping options, or sensors getting false triggers.
+  ✅ Methods to Debounce a Button:
+1. Software Debouncing (Easy and common)
+You can use a delay() or a timer check after detecting a button state change.
+
+Arduino-style example:
+
+cpp
+Copy
+Edit
+if(digitalRead(buttonPin) == LOW){
+  delay(50); // wait for 50 ms
+  if(digitalRead(buttonPin) == LOW){
+    // confirmed press
+  }
+}
+✅ How Non-blocking Debounce Works
+We treat the button like a finite state machine (FSM).
+
+📘 State Machine Approach – Overview
+We define:
+
+IDLE: waiting for press
+
+DEBOUNCING: we've seen a change, waiting to confirm
+
+CONFIRMED: valid press
+
+Each time we loop, we:
+
+Read the button state
+
+Compare current time (millis() or xTaskGetTickCount())
+
+If button stays in the same state for a threshold time (e.g., 50 ms), we accept it.
+
+✅ Arduino-style millis() Debounce – Non-blocking
+https://wokwi.com/projects/437018574991307777
