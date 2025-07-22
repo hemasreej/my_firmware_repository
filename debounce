@@ -8,9 +8,7 @@ You can use a delay() or a timer check after detecting a button state change.
 
 Arduino-style example:
 
-cpp
-Copy
-Edit
+
 if(digitalRead(buttonPin) == LOW){
   delay(50); // wait for 50 ms
   if(digitalRead(buttonPin) == LOW){
