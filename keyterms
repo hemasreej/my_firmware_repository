@@ -1,0 +1,13 @@
+| Feature                | UART                                                                     | USART                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| **Full Name**          | Universal Asynchronous Receiver/Transmitter                              | Universal Synchronous/Asynchronous Receiver/Transmitter                                |
+| **Communication Type** | **Asynchronous only** (no clock line)                                    | **Asynchronous or Synchronous** (can use clock line)                                   |
+| **Clock Line**         | Not needed                                                               | Needed in synchronous mode                                                             |
+| **Flexibility**        | Only asynchronous serial                                                 | Can do async (like UART) or sync (with clock)                                          |
+| **Use Case**           | Simple serial: e.g., TX/RX only (USB-Serial adapters, Bluetooth modules) | More flexible: can do normal UART or high-speed synchronous communication (with clock) |
+
+STM32 doesn’t have “pure UART” peripherals.
+
+All serial modules are USART, which can do both modes.
+
+When you use it as “regular UART” in HAL/CubeMX, it just runs in asynchronous mode → works exactly like a normal UART.
