@@ -11,3 +11,52 @@ STM32 doesn’t have “pure UART” peripherals.
 All serial modules are USART, which can do both modes.
 
 When you use it as “regular UART” in HAL/CubeMX, it just runs in asynchronous mode → works exactly like a normal UART.
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+> “If UART signals are already digital (0 or 1), why do we need **oversampling**?”
+
+Let me explain clearly.
+
+---
+
+### 1. **UART is digital, but the signal isn’t perfect**
+
+* Yes, UART transmits **digital voltage levels**: typically `0 V` for LOW and `3.3 V` (or `5 V`) for HIGH.
+* But in the **real world**, signals are affected by:
+
+  * **Noise** (EMI from other electronics)
+  * **Voltage fluctuations**
+  * **Slight clock mismatch** between transmitter and receiver
+
+Because of these imperfections, a single read might **catch the voltage at the wrong moment** and misinterpret a bit.
+
+---
+
+### 2. **What oversampling does**
+
+* Oversampling is the process of **reading the signal multiple times during a single bit period**.
+* Example with **16× oversampling**:
+
+  * Suppose baud rate = 115200 → 1 bit = 8.68 µs
+  * STM32 will **sample the input 16 times** during that 8.68 µs period
+  * The UART hardware then **takes a majority vote**: if most samples are HIGH → bit = 1, otherwise 0
+
+This helps to **filter out short glitches or timing errors** and ensures the bit is interpreted correctly.
+
+---
+
+### 3. **Why we need it even though the signal is “digital”**
+
+* Digital doesn’t mean “perfect”
+* Transmission wires, connectors, or even USB-Serial adapters introduce **tiny noise or timing drift**
+* Oversampling ensures **reliable detection** of each bit despite these imperfections
+
+---
+Blocking UART Receive
+
+HAL_UART_Receive with HAL_MAX_DELAY will block forever until 4 bytes arrive.
+
+This is okay for learning/testing, but in real applications, you’d normally use interrupts or DMA to avoid blocking.
+
+
